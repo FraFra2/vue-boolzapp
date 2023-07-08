@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEMPLATE</title>
+    <title>Boolzap</title>
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- TailWind -->
@@ -17,7 +17,127 @@
 </head>
 <body>
     <div id="app">
-        {{message}}
+        <main class="flex justify-center items-center h-screen">
+            <div class="container pt-4">
+                <!-- Header -->
+                <div class="bg-[#eaeaea] flex">
+                    <!-- Your Profile -->
+                    <div class = "w-2/5 p-4 flex items-center justify-between">
+                        <div class = "flex items-center">
+                            <img src="img/avatar_io.jpg" class="w-[50px] rounded-full">
+                            <span class = "ml-4">Francesco</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-circle-notch fa-xl" style="color: #b1b1b1;"></i>
+                            <i class="fa-solid px-4 fa-message fa-xl" style="color: #b1b1b1;"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-xl" style="color: #b1b1b1;"></i>
+                        </div>
+                    </div>
+                    <!-- Current Contact -->
+                    <div class = "w-3/5 p-4 border-l-[1px] border-x-gray-300 flex justify-between items-center">
+                        <div class = "flex items-center">
+                            <img src="img/avatar_4.jpg" class="w-[50px] rounded-full">
+                            <span class = "ml-4">
+                                <h4>contact-name</h4>
+                                <h4>last-access</h4>
+                            </span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-magnifying-glass fa-xl" style="color: #b1b1b1;"></i>
+                            <i class="fa-solid  px-4 fa-paperclip fa-xl" style="color: #b1b1b1;"></i>
+                            <i class="fa-solid fa-ellipsis-vertical fa-xl" style="color: #b1b1b1;"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Body -->
+                <div class="bg-[#eaeaea] flex h-[40rem]">
+                    <div class = "w-2/5 flex flex-col items-center justify-between">
+                        <!-- Notification Warn -->
+                        <div v-if = "!notification" class = "bg-[#8edafc] w-full">
+                            <div class = "p-5 flex items-center">
+                                <div>
+                                    <span class = "rounded-full bg-white p-2">
+                                        <i class="fa-solid fa-bell-slash" style="color: #8edafc;"></i>
+                                    </span>
+                                </div>
+                                <div class = "ml-4">
+                                    <h5>Ricevi notifiche di nuovi messaggi</h5>
+                                    <span @click = "switchNotification()" class = "cursor-pointer">
+                                        <a class = "text-gray-500 underline">Attiva notifiche desktop</a>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- Search Contact Input -->
+                        <div class = "w-full">
+                            <div class = " bg-white m-1.5 flex items-center">
+                                <div class = "px-8 py-2 border-r-[1px] border-x-gray-300">
+                                    <label for="contactSearch">
+                                        <i class="fa-solid fa-magnifying-glass" style="color: #b1b1b1;"></i>
+                                    </label>
+                                </div>
+                                <input class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
+                            </div>
+                        </div>
+                        <!-- Contacts -->
+                        <div class = "overflow-auto w-full">
+
+                            <div v-for = "contact in contacts" class="contact border-y border-gray-200 bg-white p-3 hover:bg-[#e9ebeb]">
+                                <div class="flex">
+                                    <div>
+                                        <img :src="contact.avatar" class = "w-[50px] rounded-full" alt="">
+                                    </div>                       
+                                        <div class = "w-full ml-4">
+                                            <div class = "flex justify-between">
+                                                <h1 class = "text-lg">{{contact.name}}</h1>
+                                                <span class = "text-gray-400 text-xs">12:00</span>
+                                            </div>
+                                            <span class = "text-gray-400 text-xs">Ultimo messaggio inviato</span>
+                                        </div>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "chat-container w-3/5 border-l-[1px] border-x-gray-300 flex flex-col-reverse">
+                        <div class = " bg-[#f3eeea] flex justify-between items-center">
+                            <div class ="px-6 py-3">
+                                <i class="fa-regular fa-face-smile fa-xl" style="color: #b1b1b1;"></i>
+                            </div>
+                            <div class = "flex-grow p-4">
+                                <input type="text" class ="p-2 w-full rounded-md" placeholder = "Scrivi un messaggio">
+                            </div>
+                            <div class ="px-6 py-3">
+                                <i class="fa-solid fa-microphone fa-xl" style="color: #b1b1b1;"></i>
+                            </div>
+                        </div>
+                        <div class = "current-chat overflow-auto">
+                            <div class="px-20 flex flex-col py-8">
+
+                                <div class="msg sent">
+                                    <h6>
+                                        Ciao Amo
+                                    </h6>
+                                    <p class = "text-[10px] text-gray-400 text-right">
+                                        16:15
+                                    </p>
+                                </div>
+                                <div class="msg received">
+                                    <span>
+                                        Ciaooo
+                                    </span>
+                                </div>
+                    
+                            </div>
+                        </div>
+
+                    </div> 
+                </div>
+                
+
+
+            </div>
+        </main>
     </div>
     <!-- Script -->
     <script src="js/main.js"></script>

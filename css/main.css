@@ -1,0 +1,46 @@
+body{
+    background: rgb(0,150,136);
+background: linear-gradient(180deg, rgba(0,150,136,1) 20%, rgba(218,219,211,1) 20%);
+background-repeat: no-repeat;
+}
+.chat-container{
+    background-image: url("../img/mine.jpg");
+}
+.msg{
+    width: 200px;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.sent{
+    align-self: flex-end;
+    background-color: #d5f9ba;
+}
+
+.received{
+    align-self: flex-start;
+    background-color: white;
+
+
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #707070; 
+  }
