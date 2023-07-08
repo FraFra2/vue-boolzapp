@@ -79,7 +79,7 @@
                                         <i class="fa-solid fa-magnifying-glass" style="color: #b1b1b1;"></i>
                                     </label>
                                 </div>
-                                <input v-model="currentMsg" class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
+                                <input class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
                             </div>
                         </div>
                         <!-- Contacts -->
@@ -107,7 +107,7 @@
                                 <i class="fa-regular fa-face-smile fa-xl" style="color: #b1b1b1;"></i>
                             </div>
                             <div class = "flex-grow p-4">
-                                <input @keyup.enter="onEnter()" type="text" class ="p-2 w-full rounded-md" placeholder = "Scrivi un messaggio">
+                                <input v-model="currentMsg" @keyup.enter="onEnter()" type="text" class ="p-2 w-full rounded-md" placeholder = "Scrivi un messaggio">
                             </div>
                             <div class ="px-6 py-3">
                                 <i class="fa-solid fa-microphone fa-xl" style="color: #b1b1b1;"></i>
