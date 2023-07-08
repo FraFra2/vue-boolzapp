@@ -9,6 +9,7 @@ background-repeat: no-repeat;
 .msg{
     width: 200px;
     padding: 8px;
+    margin-top: 1rem;
     border-radius: 8px;
 }
 

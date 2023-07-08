@@ -167,12 +167,26 @@ createApp({
         ],
         }
         ],
-      notification: false
+      notification: false,
+      contactIndex: 0,
+      currentMsg: null
     }
   },
   methods:{
     switchNotification(){
       this.notification = true
+    },
+    selectContact(index){
+      this.contactIndex = index
+    },
+    onEnter(){
+      this.contacts[this.contactIndex].messages.push(
+        {
+          date: '10/01/2020 15:30:55',
+          message: this.currentMsg,
+          status: 'sent'
+        }
+      )
     },
     created(){
       

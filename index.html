@@ -12,6 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Vue -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- Luxon -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/3.3.0/luxon.min.js" integrity="sha512-KKbQg5o92MwtJKR9sfm/HkREzfyzNMiKPIQ7i7SZOxwEdiNCm4Svayn2DBq7MKEdrqPJUOSIpy1v6PpFlCQ0YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- StyleSheet -->
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -36,10 +38,10 @@
                     <!-- Current Contact -->
                     <div class = "w-3/5 p-4 border-l-[1px] border-x-gray-300 flex justify-between items-center">
                         <div class = "flex items-center">
-                            <img src="img/avatar_4.jpg" class="w-[50px] rounded-full">
+                            <img :src="contacts[contactIndex].avatar" class="w-[50px] rounded-full">
                             <span class = "ml-4">
-                                <h4>contact-name</h4>
-                                <h4>last-access</h4>
+                                <h4>{{contacts[contactIndex].name}}</h4>
+                                <h4 class = "text-sm text-gray-500">Ultimo accesso oggi alle 12:00</h4>
                             </span>
                         </div>
                         <div>
@@ -77,16 +79,16 @@
                                         <i class="fa-solid fa-magnifying-glass" style="color: #b1b1b1;"></i>
                                     </label>
                                 </div>
-                                <input class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
+                                <input v-model="currentMsg" class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
                             </div>
                         </div>
                         <!-- Contacts -->
                         <div class = "overflow-auto w-full">
 
-                            <div v-for = "contact in contacts" class="contact border-y border-gray-200 bg-white p-3 hover:bg-[#e9ebeb]">
+                            <div @click = "selectContact(currentContact)" v-for = "(contact, currentContact) in contacts" class="contact border-y border-gray-200 bg-white p-3 hover:bg-[#e9ebeb]">
                                 <div class="flex">
                                     <div>
-                                        <img :src="contact.avatar" class = "w-[50px] rounded-full" alt="">
+                                        <img :src="contact.avatar" class = "w-[50px] rounded-full">
                                     </div>                       
                                         <div class = "w-full ml-4">
                                             <div class = "flex justify-between">
@@ -105,7 +107,7 @@
                                 <i class="fa-regular fa-face-smile fa-xl" style="color: #b1b1b1;"></i>
                             </div>
                             <div class = "flex-grow p-4">
-                                <input type="text" class ="p-2 w-full rounded-md" placeholder = "Scrivi un messaggio">
+                                <input @keyup.enter="onEnter()" type="text" class ="p-2 w-full rounded-md" placeholder = "Scrivi un messaggio">
                             </div>
                             <div class ="px-6 py-3">
                                 <i class="fa-solid fa-microphone fa-xl" style="color: #b1b1b1;"></i>
@@ -114,19 +116,15 @@
                         <div class = "current-chat overflow-auto">
                             <div class="px-20 flex flex-col py-8">
 
-                                <div class="msg sent">
+                                <div v-for="msg in contacts[contactIndex].messages" class="msg" :class = "msg.status">
                                     <h6>
-                                        Ciao Amo
+                                        {{msg.message}}
                                     </h6>
                                     <p class = "text-[10px] text-gray-400 text-right">
-                                        16:15
+                                        {{msg.date}}
                                     </p>
                                 </div>
-                                <div class="msg received">
-                                    <span>
-                                        Ciaooo
-                                    </span>
-                                </div>
+                                
                     
                             </div>
                         </div>
