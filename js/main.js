@@ -4,7 +4,6 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
-      message: 'Hello Vue!',
       contacts: [
         {
         name: 'Flavio',
@@ -189,6 +188,16 @@ createApp({
         }
       )
       this.currentMsg = ""
+      const myTime = setTimeout(this.reply, 1000);
+    },
+    reply(){
+      this.contacts[this.contactIndex].messages.push(
+        {
+          date: this.getCurrentTime(),
+          message: "ok",
+          status: 'received'
+        }
+      )
     },
     getCurrentTime(){
       const now = luxon.DateTime.now();
