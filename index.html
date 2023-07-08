@@ -53,7 +53,7 @@
                 </div>
                 <!-- Body -->
                 <div class="bg-[#eaeaea] flex h-[40rem]">
-                    <div class = "w-2/5 flex flex-col items-center justify-between">
+                    <div class = "w-2/5 flex flex-col items-center">
                         <!-- Notification Warn -->
                         <div v-if = "!notification" class = "bg-[#8edafc] w-full">
                             <div class = "p-5 flex items-center">
@@ -79,26 +79,28 @@
                                         <i class="fa-solid fa-magnifying-glass" style="color: #b1b1b1;"></i>
                                     </label>
                                 </div>
-                                <input class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
+                                <input v-model = "contactToSearch" @keyup = "filterArray()" class = "w-full ml-4 active:border-none" type="text" placeholder = "Cerca o inizia una nuova chat" id="contactSearch">
                             </div>
                         </div>
                         <!-- Contacts -->
                         <div class = "overflow-auto w-full">
-
-                            <div @click = "selectContact(currentContact)" v-for = "(contact, currentContact) in contacts" class="contact border-y border-gray-200 bg-white p-3 hover:bg-[#e9ebeb]">
-                                <div class="flex">
-                                    <div>
-                                        <img :src="contact.avatar" class = "w-[50px] rounded-full">
-                                    </div>                       
-                                        <div class = "w-full ml-4">
-                                            <div class = "flex justify-between">
-                                                <h1 class = "text-lg">{{contact.name}}</h1>
-                                                <span class = "text-gray-400 text-xs">12:00</span>
-                                            </div>
-                                            <span class = "text-gray-400 text-xs">Ultimo messaggio inviato</span>
-                                        </div>    
+                            <div>
+                                <div @click = "selectContact(currentContact)" v-for = "(contact, currentContact) in filteredContacts" class="contact border-y border-gray-200 bg-white p-3 hover:bg-[#e9ebeb]">
+                                    <div class="flex">
+                                        <div>
+                                            <img :src="contact.avatar" class = "w-[50px] rounded-full">
+                                        </div>                       
+                                            <div class = "w-full ml-4">
+                                                <div class = "flex justify-between">
+                                                    <h1 class = "text-lg">{{contact.name}}</h1>
+                                                    <span class = "text-gray-400 text-xs">12:00</span>
+                                                </div>
+                                                <span class = "text-gray-400 text-xs">Ultimo messaggio inviato</span>
+                                            </div>    
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class = "chat-container w-3/5 border-l-[1px] border-x-gray-300 flex flex-col-reverse">

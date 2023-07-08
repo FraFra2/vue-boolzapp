@@ -169,8 +169,14 @@ createApp({
         ],
       notification: false,
       contactIndex: 0,
-      currentMsg: ""
+      currentMsg: "",
+      filteredArray: [],
+      contactToSearch: "",
+      filteredContacts : []
     }
+  },
+  created() {
+    this.filteredContacts = this.contacts; // Initialize filteredContacts with all contacts
   },
   methods:{
     switchNotification(){
@@ -198,6 +204,16 @@ createApp({
           status: 'received'
         }
       )
+    },
+    filterArray(){
+      let nameArr = [];
+      this.contacts.forEach(element => {
+        nameArr.push(element.name.toLowerCase());
+      });
+      this.filteredContacts = this.contacts.filter((contact) => {
+        const contactName = contact.name.toLowerCase();
+        return contactName.includes(this.contactToSearch.toLowerCase());
+      });
     },
     getCurrentTime(){
       const now = luxon.DateTime.now();
