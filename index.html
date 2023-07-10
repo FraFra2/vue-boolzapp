@@ -84,9 +84,9 @@
                         </div>
                         <!-- Contacts -->
                         <div class = "overflow-auto w-full">
-                            <div>
-                                <div @click = "selectContact(currentContact)" v-for = "(contact, currentContact) in filteredContacts" class="contact border-y border-gray-200 bg-white p-3 hover:bg-[#e9ebeb]">
-                                    <div class="flex">
+                            <div v-for = "(contact, currentContact) in contacts" >
+                                <div @click = "selectContact(currentContact)" class="contact bg-white hover:bg-[#e9ebeb]">
+                                    <div class="flex p-3" :class = "contact.visible">
                                         <div>
                                             <img :src="contact.avatar" class = "w-[50px] rounded-full">
                                         </div>                       
@@ -95,7 +95,7 @@
                                                     <h1 class = "text-lg">{{contact.name}}</h1>
                                                     <span class = "text-gray-400 text-xs">12:00</span>
                                                 </div>
-                                                <span class = "text-gray-400 text-xs">Ultimo messaggio inviato</span>
+                                                <span class = "text-gray-400 text-xs">{{contact.messages[0].message}}</span>
                                             </div>    
                                     </div>
                                 </div>

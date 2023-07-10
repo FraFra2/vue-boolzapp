@@ -8,7 +8,7 @@ createApp({
         {
         name: 'Flavio',
         avatar: './img/avatar_1.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '15:30',
@@ -30,7 +30,7 @@ createApp({
         {
         name: 'Ben',
         avatar: './img/avatar_2.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '16:30',
@@ -52,7 +52,7 @@ createApp({
         {
         name: 'Andre',
         avatar: './img/avatar_3.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '10:10',
@@ -74,7 +74,7 @@ createApp({
         {
         name: 'Biondi',
         avatar: './img/avatar_4.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '15:30',
@@ -91,7 +91,7 @@ createApp({
         {
         name: 'Alex',
         avatar: './img/avatar_5.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '15:30',
@@ -108,7 +108,7 @@ createApp({
         {
         name: 'Michelle',
         avatar: './img/avatar_6.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '15:30',
@@ -130,7 +130,7 @@ createApp({
         {
         name: 'Nick',
         avatar: './img/avatar_7.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '15:30',
@@ -147,7 +147,7 @@ createApp({
         {
         name: 'Dadda',
         avatar: './img/avatar_8.jpg',
-        visible: true,
+        visible: "block",
         messages: [
                     {
                     date: '15:30',
@@ -172,11 +172,10 @@ createApp({
       currentMsg: "",
       filteredArray: [],
       contactToSearch: "",
-      filteredContacts : []
     }
   },
   created() {
-    this.filteredContacts = this.contacts; // Initialize filteredContacts with all contacts
+
   },
   methods:{
     switchNotification(){
@@ -206,14 +205,19 @@ createApp({
       )
     },
     filterArray(){
-      let nameArr = [];
-      this.contacts.forEach(element => {
-        nameArr.push(element.name.toLowerCase());
-      });
-      this.filteredContacts = this.contacts.filter((contact) => {
-        const contactName = contact.name.toLowerCase();
-        return contactName.includes(this.contactToSearch.toLowerCase());
-      });
+      for (let index = 0; index < this.contacts.length; index++) {
+        const element = this.contacts[index];
+        if(element.name.toLowerCase().includes(this.contactToSearch, 0) && this.contactToSearch != ""){
+          element.visible = "block";
+        }
+        else if(this.contactToSearch == ""){
+          element.visible = "block";
+        }
+        else{
+          element.visible = "hidden";
+        }
+      }
+      
     },
     getCurrentTime(){
       const now = luxon.DateTime.now();
