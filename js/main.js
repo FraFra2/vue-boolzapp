@@ -173,7 +173,6 @@ createApp({
       filteredArray: [],
       contactToSearch: "",
       replies : [],
-      hover : false
     }
   },
   created() {
