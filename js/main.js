@@ -172,10 +172,11 @@ createApp({
       currentMsg: "",
       filteredArray: [],
       contactToSearch: "",
+      replies : []
     }
   },
   created() {
-
+    this.getRandomQuote();
   },
   methods:{
     switchNotification(){
@@ -193,13 +194,13 @@ createApp({
         }
       )
       this.currentMsg = ""
-      const myTime = setTimeout(this.reply, 1000);
+      const myTime = setTimeout(this.reply, 2000);
     },
     reply(){
       this.contacts[this.contactIndex].messages.push(
         {
           date: this.getCurrentTime(),
-          message: "ok",
+          message: this.getRandomElement(this.replies),
           status: 'received'
         }
       )
@@ -224,6 +225,23 @@ createApp({
       const currentHour = now.hour;
       const currentMinutes = now.toFormat("mm");
       return `${currentHour}:${currentMinutes}`
-    } 
+    },
+    getRandomQuote(){
+      for (let index = 0; index < 20; index++) {
+        axios.get("https://api.quotable.io/quotes/random")
+        .then((response)=>{
+          const quote = response.data[0].content;
+          this.replies.push(quote);
+    });
+      }
+    },
+    returnLastMsg(index){
+      return this.contacts[index].messages[this.contacts[index].messages.length - 1].message
+    },
+    getRandomElement(arr) {
+      const randomIndex = Math.floor(Math.random() * arr.length);
+      return arr[randomIndex];
+    }
+    
   }
 }).mount('#app')
