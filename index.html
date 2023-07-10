@@ -118,15 +118,30 @@
                         <div class = "current-chat overflow-auto">
                             <div class="px-20 flex flex-col py-8">
 
-                                <div v-for="msg in contacts[contactIndex].messages" class="msg" :class = "msg.status">
-                                    <h6>
-                                        {{msg.message}}
-                                    </h6>
-                                    <p class = "text-[10px] text-gray-400 text-right">
-                                        {{msg.date}}
-                                    </p>
-                                    <div class="popup">
-
+                                <div v-for="(msg, msgIndex) in contacts[contactIndex].messages" class="msg" :class = "msg.status">
+                                    <div>
+                                        <div class = "flex justify-between items-center">
+                                            <h6>
+                                                {{msg.message}}
+                                                
+                                            </h6>
+                                            <span class = "pl-4" @click="togglePopup(msg)">
+                                                <i class="fa-solid fa-chevron-down" style="color: #b1b1b1;"></i>
+                                            </span>
+                                        </div>
+                                        
+                                        <p class = "text-[10px] text-gray-400 text-right">
+                                            {{msg.date}}
+                                            
+                                        </p>
+                                    </div>
+                                    <div class="popup text-center rounded-l absolute bg-[#f3eeea]" v-show = "msg.popupVisible" >
+                                        <span class = "block p-4 rounded-l hover:bg-[#e9ebeb]">
+                                            Message Info
+                                        </span>
+                                        <span class = "block p-4 rounded-l hover:bg-[#e9ebeb]" @click = "popMessage(msgIndex)">
+                                            Delete message
+                                        </span>
                                     </div>
                                 </div>
                                 
