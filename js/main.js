@@ -238,6 +238,9 @@ createApp({
     returnLastMsg(index){
       return this.contacts[index].messages[this.contacts[index].messages.length - 1].message
     },
+    returnLastMsgTime(index){
+      return this.contacts[index].messages[this.contacts[index].messages.length - 1].date
+    },
     getRandomElement(arr) {
       const randomIndex = Math.floor(Math.random() * arr.length);
       return arr[randomIndex];
